@@ -7066,12 +7066,10 @@ function mpAdd(pid,btn){const row=btn.closest('.mp-row');if(mpSel(pid).length>=3
 document.querySelectorAll('.mp').forEach(m=>mpRender(m.id.slice(3)));
 
 // 커뮤니티 메뉴에 마우스를 올리면 아래 게시판이 펼쳐짐
-const SUBM={'질문':[['거래 단계로 찾기',[['소싱','q:소싱'],['계약·서류','q:계약·서류'],['결제·송금','q:결제·송금'],['인증·요건','q:인증·요건'],['운송','q:운송'],['통관·관세','q:통관·관세'],['판매·세무','q:판매·세무'],['문제 생겼어요','q:문제 생겼어요']]],['바로 가기',[['질문 올리기','cmx_n5_ask'],['해결된 질문 보기','cmx_t2_post']]]],
- '견적·의뢰':[['견적·의뢰',[['견적 받기 · 비교','cmx_n2_quote'],['수락 전 확인','cmx_n6_confirm']]]],
- '거래':[['거래',[['구해요 · 팔아요','cmx_n3_market'],['묶음 출항','cmx_n12_pool'],['거래 진행','cmx_n9_deal']]]],
- '실무자·라운지':[['실무자',[['전체 실무자','p:all'],['내 실무자 (거래·연락한 회원)','p:mine'],['찜한 회원','p:jjim']]],['모이기',[['품목·구간 라운지','p:lounge'],['첫 수입 기수','p:cohort']]]],
- '실무 자료':[['자료 종류',[['가이드 · 운영팀 검수','lib:가이드'],['체크리스트','lib:체크리스트'],['계산·조회 도구','lib:계산·조회 도구'],['서식·서류','lib:서식·서류'],['처음 시작 코스','lib:처음 시작 코스'],['용어 사전','lib:용어']]],['거래 단계별',[['소싱','stage:소싱'],['계약·서류','stage:계약·서류'],['결제·송금','stage:결제·송금'],['인증·요건','stage:인증·요건'],['운송','stage:운송'],['통관·관세','stage:통관·관세'],['판매·세무','stage:판매·세무']]]],
- '소식·일정':[['내 품목 소식',[['규제·고시 개정','news:'],['지원사업 마감','news:'],['전시회·교육','news:']]]]};
+const SUBM={'질문':[['질문',[['전체 질문 · 거래 단계별','cmx_n1_home'],['질문 올리기','cmx_n5_ask'],['해결된 질문','cmx_t2_post']]]],
+ '거래':[['거래',[['구해요 · 팔아요','cmx_n3_market'],['묶음 출항','cmx_n12_pool']]]],
+ '실무자·라운지':[['실무자',[['실무자 찾기','p:all'],['내 실무자','p:mine'],['찜한 회원','p:jjim']]],['모이기',[['품목·구간 라운지','p:lounge'],['첫 수입 기수','p:cohort']]]],
+ '실무 자료':[['자료 종류',[['가이드 · 운영팀 검수','lib:가이드'],['체크리스트','lib:체크리스트'],['계산·조회 도구','lib:계산·조회 도구'],['서식·서류','lib:서식·서류'],['처음 시작 코스','lib:처음 시작 코스'],['용어 사전','lib:용어']]]]};
 function smHtml(key,m){return '<div class="smc">'+m.map(([t,items])=>'<div class="smg"><b>'+t+'</b>'+items.map(([n,to])=>'<a data-to="'+to+'">'+n+'</a>').join('')+'</div>').join('')+'</div>'+(key==='실무 자료'?'<div class="smf" data-to="lib:">내 품목 · 주방용품 (HS 3924) 자료 12개 →</div>':'')}
 function libFind(label){const sec=document.getElementById('cmx_n4_library');if(!sec)return null;const hs=[...sec.querySelectorAll('h3,li,.col,b,div')];
  if(label==='용어')return hs.find(e=>e.textContent.trim().startsWith('용어는 따로'))||null;
