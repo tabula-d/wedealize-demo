@@ -16223,7 +16223,7 @@ function dToast(msg){let t=document.getElementById('dtoast');if(!t){t=document.c
 })();
 
 // v44: 아직 연결되지 않은 버튼 → 이름에 맞는 결과 (상태 바뀜 + 짧은 안내)
-window.__smartAct=function(el,t){const T=(t||'').replace(/\s+/g,' ').trim();const say=m=>(window.dToast||parent.dToast)(m);
+window.__smartAct=function(el,t){const T=(t||'').replace(/\s+/g,' ').trim();if(el.closest('[data-go]')||el.closest('.screen:not(.on)'))return;const say=m=>(window.dToast||parent.dToast)(m);
  const done=(lab,msg)=>{if(!el.dataset.o)el.dataset.o=el.innerHTML;el.innerHTML='✓ '+lab;el.classList.add('acted');say(msg)};
  if(el.matches('.chip,.tag,.badge,.lv,.role,.ug,.kd')&&!el.closest('.fchips,.chips,.filters,.tbar,.ptabs3'))return;
  if(el.closest('.ptabs3')){el.closest('.ptabs3').querySelectorAll('a').forEach(x=>x.classList.toggle('on',x===el));return say('‘'+T.replace(/\s*\d[\d,]*$/,'')+'’만 골라 보여 드려요')}
@@ -16266,7 +16266,7 @@ window.__smartAct=function(el,t){const T=(t||'').replace(/\s+/g,' ').trim();cons
   const ob=new MutationObserver(m=>{mut+=m.length});const roots=[document.body];document.querySelectorAll('iframe').forEach(f=>{try{f.contentDocument&&roots.push(f.contentDocument.body)}catch(x){}});
   roots.forEach(r=>{try{ob.observe(r,{subtree:true,childList:true,attributes:true,characterData:true})}catch(x){}});
   setTimeout(()=>{ob.disconnect();const now=window.CUR||parent.CUR;if(now===cur&&mut===0&&!window.__auditNoFallback){const t=(el.textContent||'').trim();
-   (window.__smartAct||parent.__smartAct)(el,t)}},450)},true)}
+   (window.__smartAct||parent.__smartAct)(el,t)}},250)},true)}
  arm(document,false);
  const hook=f=>{try{const d=f.contentDocument;if(d&&!d.__armed){d.__armed=1;arm(d,true)}}catch(x){}};
  document.querySelectorAll('iframe').forEach(f=>{hook(f);f.addEventListener('load',()=>hook(f))});
