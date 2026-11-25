@@ -16147,7 +16147,7 @@ const STORIES=[['A · 실리콘 주걱 수입 (SHIP-0431 내 거래)',[['afn','�
  });
 })();
 function storyUpd(id){const box=document.getElementById('story');if(!box)return;
- const st=STORIES.map(([t,ch])=>[t,ch.filter(([k])=>document.getElementById(k))]).find(([t,ch])=>ch.some(([k])=>k===id));
+ const _all=STORIES.map(([t,ch])=>[t,ch.filter(([k])=>document.getElementById(k))]).filter(([t,ch])=>ch.some(([k])=>k===id));const _g=window.__stG;const st=(window.__stT&&_all.find(([t])=>t===window.__stT))||(_g==='op'&&_all.find(([t])=>t.startsWith('오퍼레이션')))||(_g==='ai'&&_all.find(([t])=>!t.startsWith('오퍼레이션')&&!t.startsWith('커뮤니티')))||_all[0];if(st)window.__stT=st[0];
  if(!st){box.classList.remove('on');box.innerHTML='';if(typeof setDbh==='function')setDbh();return}
  const [title,ch]=st;const i=ch.findIndex(([k])=>k===id);const C='①②③④⑤⑥⑦⑧⑨⑩';
  let h='<span class="sl">'+title+'</span>'+ch.map(([k,l,w],j)=>(j?'<span class="sep">›</span>':'')+'<a class="'+(j<i?'done':j===i?'on':'')+'" data-k="'+k+'"'+(w?' title="'+w+' 화면"':'')+'><i>'+(j+1)+'</i>'+l+(w&&j===i?' <span class="who">· '+w+' 화면</span>':'')+'</a>').join('');
@@ -16417,6 +16417,7 @@ function dToast(msg){let t=document.getElementById('dtoast');if(!t){t=document.c
 document.addEventListener('click',e=>{const c=e.target.closest('#cmx_t2_post .chip,#cmx_n27_qpost .chip,#cmx_t2_post .crumb a,#cmx_n27_qpost .crumb a');if(!c)return;const T=c.textContent.trim();
  const STG=['소싱','계약·서류','결제·송금','인증·요건','운송','통관·관세','판매·세무'];if(!STG.includes(T))return;e.preventDefault();e.stopPropagation();go('cmx_n1_home');
  setTimeout(()=>{const x=[...document.querySelectorAll('#cmx_n1_home .stg')].find(y=>y.textContent.replace(/\s*[\d,]+$/,'').trim()===T);if(x)x.click()},120)},true);
+document.addEventListener('click',e=>{const g=e.target.closest('.dbar a.tab[data-g]');if(g){window.__stG=g.dataset.g;window.__stT=null}},true);
 // v44: 게시판 줄 → 글 상세 (줄의 data-*로 상세 화면 채우기, 이야기용 줄은 원래 내용)
 (function(){
  function restore(sec){sec.querySelectorAll('[data-fill]').forEach(el=>{if(el._orig!==undefined)el.innerHTML=el._orig});
@@ -16444,7 +16445,7 @@ window.__smartAct=function(el,t){const T=(t||'').replace(/\s+/g,' ').trim();if(e
  if(sid==='cmx_n14_points'){if(/모임 일정/.test(T))return go('tcal');if(/^자료 보기/.test(T))return go('cmx_n4_library');if(/작업 맡기기/.test(T))return go('a1')}
  if(sid==='cmx_n29_dview'){const m=T.match(/^([A-E])\.\s*(.*)/);if(m){const h=[...el.closest('section.screen').querySelectorAll('.ch,h2,h3,h4,b,.sec-t')].find(x=>x!==el&&!x.closest('.toc,nav,aside')&&x.textContent.trim().startsWith(m[1]+'.'));if(h){h.scrollIntoView({behavior:'smooth',block:'center'});return}}if(/개정 이력/.test(T)){const h=[...el.closest('section.screen').querySelectorAll('*')].find(x=>x!==el&&x.children.length<3&&/^개정 이력/.test(x.textContent.trim()));if(h){h.scrollIntoView({behavior:'smooth',block:'center'});return}}if(/틀린 곳/.test(T))return say('틀린 곳을 적는 칸이 열려요 · 운영팀이 확인하고 작성자에게 알려요')}
  if(/답변자에게 쪽지/.test(T))return go('cmx_n24_inbox');
- if(['a0','a1','c1'].includes(sid)){if(/치이카와/.test(T))return go('cm_post');if(/인도네시아산 커피/.test(T))return openPostBy('cmx_n1_home','인도네시아산');if(/^안녕하세요/.test(T))return openPostBy('cmx_n1_home','안녕하세요');if(/^커뮤니티 홈/.test(T))return go('cmx_n26_feed');if(/^질문하기/.test(T))return go('cmx_n5_ask');if(/이 질문 넣기/.test(T))return say('입력 칸에 질문을 넣었어요 · 보내면 무역 AI가 먼저 답해요')}
+ if(['a0','a1','c1'].includes(sid)){if(/치이카와/.test(T))return go('cm_post');if(/인도네시아산 커피/.test(T))return openPostBy('cmx_n1_home','인도네시아산');if(/^안녕하세요/.test(T))return openPostBy('cmx_n1_home','안녕하세요');if(/^커뮤니티 홈/.test(T))return go('cmx_n26_feed');if(/질문하기/.test(T))return go('cmx_n5_ask');if(/이 질문 넣기/.test(T))return say('입력 칸에 질문을 넣었어요 · 보내면 무역 AI가 먼저 답해요')}
  if(/^근거/.test(T))return say('근거 원문을 새 창으로 열어요 · 시연에선 미리 보기만 보여 드려요');
  if(/근거 붙이기/.test(T))return say('붙일 근거(법령 조문·통관 서류)를 고르는 창이 열려요 · 붙이면 신뢰도에 반영돼요');
  if(/빠진 항목 묻기/.test(T))return say('이미 바다건너 제안을 수락해서 다른 제안에 묻기는 닫혔어요');
